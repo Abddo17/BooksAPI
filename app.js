@@ -18,6 +18,19 @@ app.use(cookieParser());
 //routes
 app.use("/books", require("./routes/api/books"));
 app.use("/auth", require("./routes/api/auth"));
+app.get("/", (req, res) => {
+  res.status(200).json({
+    name: "Library API",
+    version: "1.0.0",
+    status: "running",
+    message:
+      "Welcome to the Library API. Use /auth for authentication and /books to manage books.",
+    endpoints: [
+      { path: "/auth", description: "Authentication endpoints" },
+      { path: "/books", description: "Book management endpoints" },
+    ],
+  });
+});
 
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB");
